@@ -1,0 +1,199 @@
+{
+  	"/auth": {
+	    "/token": {
+	        "put": {
+	            "produces": [
+	              "application/json"
+	            ],
+	            "parameters": [
+	              {
+	                "name": "email",
+	                "in": "body",
+	                "required": true,
+	                "type": "string"
+	              },
+	              {
+	                "name": "password",
+	                "in": "body",
+	                "required": true,
+	                "type": "string"
+	              }
+	            ],
+	            "responses": {
+	              "200": {
+	                "description": "200 response",
+	                "schema": {
+	                  "$ref": "#/definitions/Empty"
+	                },
+	                "headers": {
+	                  "Access-Control-Allow-Origin": {
+	                    "type": "string"
+	                  }
+	                }
+	              }
+	            }
+	        }
+	  	}
+	},
+  	"/users": {
+    	"": {
+		    "get": {
+		        "produces": [
+		        	"application/json"
+		        ],
+		        "parameters": [
+		          {
+		            "name": "x-access-token",
+		            "in": "header",
+		            "required": true,
+		            "type": "string"
+		          },
+		          {
+		            "name": "page",
+		            "in": "query",
+		            "required": false,
+		            "type": "string"
+		          },
+		          {
+		            "name": "page_size",
+		            "in": "query",
+		            "required": false,
+		            "type": "string"
+		          }
+		        ],
+		        "responses": {
+		          "200": {
+		            "description": "200 response",
+		            "schema": {
+		              "$ref": "#/definitions/Empty"
+		            },
+		            "headers": {
+		              "Access-Control-Allow-Origin": {
+		                "type": "string"
+		              }
+		            }
+		          }
+		        }
+		    },
+		    "post": {
+		        "produces": [
+		          "application/json"
+		        ],
+		        "parameters": [
+		          {
+		            "name": "x-access-token",
+		            "in": "header",
+		            "required": true,
+		            "type": "string"
+		          },
+		          {
+		            "name": "user",
+		            "in": "body",
+		            "required": false,
+		            "type": "json"
+		          }
+		        ]
+		    }
+			},
+			"/{id}": {
+					"get": {
+							"produces": [
+								"application/json"
+							],
+							"parameters": [
+								{
+									"name": "x-access-token",
+									"in": "header",
+									"required": true,
+									"type": "string"
+								},
+								{
+									"name": "user_id",
+									"in": "path",
+									"required": true,
+									"type": "string"
+								}
+							],
+							"responses": {
+								"200": {
+									"description": "200 response",
+									"schema": {
+										"$ref": "#/definitions/Empty"
+									},
+									"headers": {
+										"Access-Control-Allow-Origin": {
+											"type": "string"
+										}
+									}
+								}
+							}
+					},
+					"put": {
+							"produces": [
+								"application/json"
+							],
+							"parameters": [
+								{
+									"name": "x-access-token",
+									"in": "header",
+									"required": true,
+									"type": "string"
+								},
+								{
+									"name": "user_id",
+									"in": "path",
+									"required": true,
+									"type": "string"
+								},
+								{
+									"name": "user",
+									"in": "body",
+									"required": true,
+									"type": "json"
+								}
+							]
+					},
+					"post": {
+							"produces": [
+								"application/json"
+							],
+							"parameters": [
+						{
+							"name": "x-access-token",
+							"in": "header",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "user_id",
+							"in": "path",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "user",
+							"in": "body",
+							"required": true,
+							"type": "json"
+						}
+							]
+					},
+					"delete": {
+							"parameters": [
+								{
+									"name": "x-access-token",
+									"in": "header",
+									"required": true,
+									"type": "string"
+								},
+								{
+									"name": "user_id",
+									"in": "path",
+									"required": true,
+									"type": "string"
+								}
+							]
+					}
+			}
+  	}
+}

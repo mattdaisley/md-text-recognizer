@@ -1,0 +1,46 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "helmet": "^3.8.1",
+    "jasmine-node": "^1.14.5",
+    "jsonwebtoken": "^7.0.1",
+    "knex": "^0.11.7",
+    "lodash": "^4.17.4",
+    "merge": "^1.2.0",
+    "mysql": "^2.10.2",
+    "request": "^2.73.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "name": "md-text-recognizer",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "",
+  "author": "Matt Daisley <mattdaisley@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "cd core/client && npm install",
+    "start-client": "cd core/client && npm run start",
+    "build-client": "cd core/client && npm run build",
+    "build-local": "cd core/client && npm run build-local",
+    "start": "node index.js",
+    "start-prod": "pm2 start index.js",
+    "start-dev": "NODE_ENV=dev pm2 start index.js",
+    "restart": "rm /Users/mattdaisley/.pm2/logs/*.log; pm2 restart index",
+    "stop": "pm2 stop index",
+    "pretest": "npm run stop",
+    "docker-build": "docker build -t superview .",
+    "docker-ecr-login": "$(aws ecr get-login --no-include-email --region us-east-1)",
+    "docker-tag": "docker tag superview:latest 970556883193.dkr.ecr.us-east-1.amazonaws.com/superview:latest",
+    "docker-push": "docker push 970556883193.dkr.ecr.us-east-1.amazonaws.com/superview:latest",
+    "docker-run": "docker run -d -p 8000:3000 superview",
+    "docker-complete": "npm run docker-build && npm run docker-ecr-login && npm run docker-tag && npm run docker-push"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^2.9.0"
+  }
+}
