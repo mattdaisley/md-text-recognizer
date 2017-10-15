@@ -58,8 +58,8 @@ class Home extends Component {
       var canvas = document.createElement('CANVAS');
       var ctx = canvas.getContext('2d');
       var dataURL;
-      canvas.height = img.naturalHeight / 3;
-      canvas.width = img.naturalWidth / 3;
+      canvas.height = img.naturalHeight / 5;
+      canvas.width = img.naturalWidth / 5;
       console.log(img.naturalWidth, img.naturalHeight)
       ctx.drawImage(img, 0, 0);
       ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, canvas.width, canvas.height);
@@ -98,6 +98,47 @@ class Home extends Component {
 
     this.props.googleVisionImagesAnnotate(body)
   }
+  
+  handleImageChange = (event) => {
+    event.preventDefault();
+    
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      // console.log(reader.result)
+      // this.setState({
+      //   file: file,
+      //   imagePreviewUrl: reader.result
+      // });
+
+      this.toDataURL(
+        reader.result,
+        (dataUrl) => {
+          // console.log(dataUrl)
+          this.setState({data: dataUrl})
+          const body = {
+            "requests": [
+              {
+                "image": {
+                  "content": dataUrl.slice(22)
+                },
+                "features": [
+                  {
+                    "type": "TEXT_DETECTION"
+                  }
+                ]
+              }
+            ]
+          }
+      
+          this.props.googleVisionImagesAnnotate(body)
+        }
+      )
+    }
+
+    reader.readAsDataURL(file)
+  }
 
   render() {
 
@@ -125,22 +166,23 @@ class Home extends Component {
 
         <Grid container spacing={0} justify="center">
           <Grid item xs={12}>
-            <Webcam
+            {/* <Webcam
               audio={false}
               height={350}
               ref={this.setRef}
               screenshotFormat="image/jpeg"
               width={350}
-            />
+            /> */}
+            <input id="file" type="file" accept="image/*" onChange={(e)=>this.handleImageChange(e)} />
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Button color="primary" onClick={this.capture}>Capture photo</Button>
-          </Grid>
+          </Grid> */}
         </Grid>
 
         <Grid container spacing={0} justify="center">
-          <Grid item xs={12} spacing={16}>
+          <Grid item xs={12}>
             { (this.state.data.length > 0) && (
               <Canvas data={this.state.data} />
             )}
