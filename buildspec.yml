@@ -1,4 +1,4 @@
-version: 0.2
+version: 0.1
 
 phases:
   pre_build:
@@ -9,10 +9,10 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...  
-      - docker build -t superview .
-      - docker tag superview:latest 970556883193.dkr.ecr.us-east-1.amazonaws.com/superview:latest      
+      - docker build -t md-text-recognition .
+      - docker tag md-text-recognition:latest 970556883193.dkr.ecr.us-east-1.amazonaws.com/md-text-recognition:latest      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 970556883193.dkr.ecr.us-east-1.amazonaws.com/superview:latest
+      - docker push 970556883193.dkr.ecr.us-east-1.amazonaws.com/md-text-recognition:latest
